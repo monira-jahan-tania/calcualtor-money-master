@@ -63,6 +63,9 @@ function calcBalance(isExpances) {
             const remainingBalance = parseInt(balanceOutput) - savingAmount;
             return remainingBalance;
         }
+        else if (savingAmount > parseInt(balanceOutput)) {
+            return (document.getElementById("saving-amount").innerText = "Oops! your saving excludes your balance")
+        }
         else if (document.getElementById("saving-input").value < 0) {
             return (document.getElementById("remaining-balance").innerText = "Please enter valid number for saving ")
         }
