@@ -4,7 +4,7 @@ function removeFunction() {
     document.getElementById("rent-expances-input").value = " ";
     document.getElementById("clothes-expances-input").value = " ";
     document.getElementById("saving-input").value = " ";
-    document.getElementById("expenses-output").innerText = " 000"
+    document.getElementById("expenses-output").innerText = "000"
     document.getElementById("balance-output").innerText = "000";
     document.getElementById("remaining-balance").innerText = "000";
     document.getElementById("saving-amount").innerText = "000 ";
@@ -17,9 +17,8 @@ function calcTotalExpances() {
     const rentExpancesInput = document.getElementById("rent-expances-input").value;
     const clothesExpancesInput = document.getElementById("clothes-expances-input").value;
     if (foodExpancesInput < 0 || rentExpancesInput < 0 || clothesExpancesInput < 0 || incomeInput < 0) {
-        // document.getElementById("expenses-output").innerText = "Please enter valid number for both income and expanses";
         alert("please enter valid number for both income and expanses");
-        removeFunction()
+        removeFunction();
 
         return;
     }
@@ -48,9 +47,8 @@ function calcSavingAmount() {
         return savingAmount;
     }
     else {
-        // document.getElementById("saving-amount").innerText = "please enter valid number for both income and saving"
         alert("please enter valid number for both income and saving");
-        removeFunction()
+        removeFunction();
         return;
     }
 
@@ -65,9 +63,8 @@ function calcBalance(isExpances) {
         if (totalExpances > parseInt(incomeInput)) {
 
             alert("Oops! your expanses escludes you income")
-            removeFunction()
+            removeFunction();
             return;
-            // return (document.getElementById("balance-output").innerText = "Oops! your expanses escludes you income");
         }
         else {
             const balanceAfterExpances = parseInt(incomeInput) - totalExpances;
@@ -83,28 +80,30 @@ function calcBalance(isExpances) {
             return remainingBalance;
         }
         else if (savingAmount > parseInt(balanceOutput)) {
-            // return (document.getElementById("saving-amount").innerText = "Oops! your saving excludes your balance")
+
             alert("Oops! your saving excludes your balance");
-            removeFunction()
+            removeFunction();
             return;
         }
         else if (document.getElementById("saving-input").value < 0) {
-            // return (document.getElementById("remaining-balance").innerText = "Please enter valid number for saving ")
             alert("Please enter valid number for saving ");
-            removeFunction()
+            removeFunction();
             return;
         }
         else if (document.getElementById("income-input").value < 0) {
-            // return (document.getElementById("remaining-balance").innerText = "Please enter valid number for income ")
+
             alert("Please enter valid number for income ");
-            removeFunction()
+            removeFunction();
+            return;
+        }
+        else if (savingAmount == parseInt(balanceOutput)) {
+            alert("Oops! your saving excludes your balance");
+            removeFunction();
             return;
         }
         else {
-            alert("Oops! your saving excludes your balance");
-            removeFunction()
+            removeFunction();
             return;
-            // return (document.getElementById("remaining-balance").innerText = "Oops! your saving excludes your balance")
         }
 
     }
