@@ -1,14 +1,14 @@
-
+//total expanxces
 function calcTotalExpances() {
+    const incomeInput = document.getElementById("income-input").value;
     const foodExpancesInput = document.getElementById("food-expances-input").value;
     const rentExpancesInput = document.getElementById("rent-expances-input").value;
     const clothesExpancesInput = document.getElementById("clothes-expances-input").value;
-    if (foodExpancesInput < 0 || rentExpancesInput < 0 || clothesExpancesInput < 0) {
-        alert("Please enter valid cost")
+    if (foodExpancesInput < 0 || rentExpancesInput < 0 || clothesExpancesInput < 0 || incomeInput < 0) {
+        document.getElementById("expenses-output").innerText = "Please enter valid number for both income and expanses";
+        return;
     }
-    // else if (foodExpancesInput != "number" || rentExpancesInput != "number" || clothesExpancesInput != "number") {
-    //     alert("Please enter number")
-    // }
+
     else {
         const totalExpances = parseInt(foodExpancesInput) + parseInt(rentExpancesInput) + parseInt(clothesExpancesInput);
 
@@ -20,32 +20,63 @@ function calcTotalExpances() {
 
 
 }
-
+// saving calculation
 function calcSavingAmount() {
     const savingInput = document.getElementById("saving-input").value;
     const incomeInput = document.getElementById("income-input").value;
 
-    const savingAmount = parseInt(incomeInput) * parseInt(savingInput) / 100;
-    document.getElementById("saving-amount").innerText = savingAmount;
+    if (savingInput > 0 && incomeInput > 0) {
 
-    return savingAmount;
+        const savingAmount = parseInt(incomeInput) * parseInt(savingInput) / 100;
+        document.getElementById("saving-amount").innerText = savingAmount;
 
-}
-
-function calcBalance(isExpances) {
-    if (isExpances == true) {
-        const incomeInput = document.getElementById("income-input").value;
-        const balanceAfterExpances = parseInt(incomeInput) - calcTotalExpances();
-        return balanceAfterExpances;
+        return savingAmount;
     }
     else {
-        const balanceOutput = document.getElementById("balance-output").innerText;
-        const remainingBalance = parseInt(balanceOutput) - calcSavingAmount();
-        return remainingBalance;
+        document.getElementById("saving-amount").innerText = "please enter valid number for both income and saving"
+        return;
     }
 
 }
 
+// balance calculation
+function calcBalance(isExpances) {
+
+    if (isExpances == true) {
+        const incomeInput = document.getElementById("income-input").value;
+        const totalExpances = calcTotalExpances();
+        if (totalExpances > parseInt(incomeInput)) {
+
+
+            return (document.getElementById("balance-output").innerText = "Oops! your expanses escludes you income");
+        }
+        else {
+            const balanceAfterExpances = parseInt(incomeInput) - totalExpances;
+            return balanceAfterExpances;
+        }
+
+    }
+    else {
+        const savingAmount = calcSavingAmount();
+        const balanceOutput = document.getElementById("balance-output").innerText;
+        if (savingAmount < parseInt(balanceOutput)) {
+            const remainingBalance = parseInt(balanceOutput) - savingAmount;
+            return remainingBalance;
+        }
+        else if (document.getElementById("saving-input").value < 0) {
+            return (document.getElementById("remaining-balance").innerText = "Please enter valid number for saving ")
+        }
+        else {
+
+            return (document.getElementById("remaining-balance").innerText = "Oops! your saving excludes your balance")
+        }
+
+    }
+
+}
+
+
+// button handling
 document.getElementById("calculation-btn").addEventListener("click", function () {
     document.getElementById("balance-output").innerText = calcBalance(true);
 })
